@@ -1,20 +1,30 @@
+import logic.LinkChecker;
+import logic.PreSetData;
 import logic.SetUp;
-import org.openqa.selenium.By;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-import pages.ClientsList;
-import pages.LoginPage;
-import pages.ProgramLibrary;
 
 public class SkillFactory extends SetUp {
 
     @Test
-    void addLessonTest() {
+    void menuElements() {
+        homePO.dropDownNumberOfSections();
+    }
 
+
+    @Test
+    void subscriptionPositiveTest() {
+        homePO.invalidEmailSubscription();
     }
 
     @Test
-    void loginTest(){
-
+    void checkLinks(){
+        LinkChecker.runLinkChecker(homePO.getInnerLinks());
     }
 
+    @AfterClass
+    void close() throws InterruptedException {
+        getDriver().close();
+        getDriver().quit();
+    }
 }

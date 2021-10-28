@@ -1,10 +1,14 @@
 package logic;
 
+import org.junit.After;
+import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
+import pages.Home;
 
 import java.time.Duration;
 
@@ -14,6 +18,7 @@ public class SetUp {
     private static WebDriverWait wait;
     private static final String URL = "http://localhost:4444/wd/hub/";
     public static final String testURL = "https://www.skillfactory.ru/";
+    public  Home homePO;
 
     public static WebDriver getDriver() {
         return driver;
@@ -30,10 +35,12 @@ public class SetUp {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.get(testURL);
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-    }
+        homePO = new Home();
+   }
 
-    @AfterTest
-    void close() {
+
+    @After
+    void close(){
         driver.close();
         driver.quit();
     }
