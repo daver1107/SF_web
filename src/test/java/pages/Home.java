@@ -17,6 +17,9 @@ public class Home extends SetUp {
     private static By innerLinksxPath = By.xpath("//a[contains(@href,'skillfactory.ru/')]");
     private static By emailSubscriptionFieldxPath = By.xpath("//input[@class = 't-input js-tilda-rule ']");
     private static By invalidEmailErrorxPath = By.xpath("//p[@class = 't-form__errorbox-item']");
+    private static By successEmailSubmitxPath = By.xpath("    //div[@class = 't-form-success-popup__wrapper']");
+
+    //div[@class = 't-form-success-popup__wrapper']
 
 
     private static List<WebElement> dropDownElements = getDriver().findElements(dropDownTopMenuxPath);
@@ -42,14 +45,20 @@ public class Home extends SetUp {
         return innerLinks;
     }
 
-    public boolean invalidEmailSubscription() {
-        return emailSubscription(PreSetData.invalidEmail);
+    public boolean subscribeWithEmail(String emailValue) {
+        emailSubscription(emailValue);
+        if (getWait().until(ExpectedConditions.presenceOfElementLocated(invalidEmailErrorxPath)).isDisplayed())
+            return true;
+        if (getWait().until(ExpectedConditions.presenceOfElementLocated(successEmailSubmitxPath)).isDisplayed())
+            return true;
+        else return false;
     }
 
-    private boolean emailSubscription(String email) {
+    private void emailSubscription(String providedEmail){
         WebElement emailField = getWait().until(ExpectedConditions.elementToBeClickable(emailSubscriptionFieldxPath));
-        emailField.sendKeys(email);
+        emailField.clear();
+        emailField.sendKeys(providedEmail);
         emailField.submit();
-        return getWait().until(ExpectedConditions.presenceOfElementLocated(invalidEmailErrorxPath)).isDisplayed();
+
     }
 }

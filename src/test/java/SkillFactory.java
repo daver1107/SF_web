@@ -13,8 +13,13 @@ public class SkillFactory extends SetUp {
 
 
     @Test
-    void subscriptionPositiveTest() {
-        homePO.invalidEmailSubscription();
+    void subscriptionNegativeTest() {
+        homePO.subscribeWithEmail(PreSetData.invalidEmail);
+    }
+
+    @Test
+    void supscriptionPositiveTest() {
+        homePO.subscribeWithEmail(PreSetData.validEmail);
     }
 
     @Test
@@ -23,7 +28,7 @@ public class SkillFactory extends SetUp {
     }
 
     @AfterClass
-    void close() throws InterruptedException {
+    void close(){
         getDriver().close();
         getDriver().quit();
     }
