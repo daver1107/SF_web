@@ -16,11 +16,9 @@ public class Home extends SetUp {
     private static By buttomMenuxPath = By.xpath("//a[@class = 'tn-atom']");
     private static By innerLinksxPath = By.xpath("//a[contains(@href,'skillfactory.ru/')]");
     private static By emailSubscriptionFieldxPath = By.xpath("//input[@class = 't-input js-tilda-rule ']");
-    private static By invalidEmailErrorxPath = By.xpath("//p[@class = 't-form__errorbox-item']");
-    private static By successEmailSubmitxPath = By.xpath("    //div[@class = 't-form-success-popup__wrapper']");
-
-    //div[@class = 't-form-success-popup__wrapper']
-
+    private static By invalidEmailErrorxPath = By.id("tilda-popup-for-error");
+    private static By successEmailSubmitxPath = By.xpath("//div[@class = 't-form-success-popup__wrapper']");
+    private static By successPopUpClosexPath = By.className("t-form-success-popup__close-icon");
 
     private static List<WebElement> dropDownElements = getDriver().findElements(dropDownTopMenuxPath);
     private static List<WebElement> buttomMenu = getDriver().findElements(buttomMenuxPath);
@@ -30,7 +28,6 @@ public class Home extends SetUp {
     }
 
     private static List<WebElement> innerLinks = getDriver().findElements(innerLinksxPath);
-
 
 
     private static final int numberOfDropDownElements = 13;
@@ -46,19 +43,42 @@ public class Home extends SetUp {
     }
 
     public boolean subscribeWithEmail(String emailValue) {
-        emailSubscription(emailValue);
-        if (getWait().until(ExpectedConditions.presenceOfElementLocated(invalidEmailErrorxPath)).isDisplayed())
+        if (emailSubscription(emailValue).getText().contains(PreSetData.invalidEmailMessageRU) ||
+                emailSubscription(emailValue).getText().contains(PreSetData.invalidEmailMessageRU) ||
+                emailSubscription(emailValue).getText().contains(PreSetData.requiredFieldsEmptyRU) ||
+                emailSubscription(emailValue).getText().contains(PreSetData.requiredFieldsEmptyEN)) {
+            System.out.println(emailSubscription(emailValue).getText());
             return true;
-        if (getWait().until(ExpectedConditions.presenceOfElementLocated(successEmailSubmitxPath)).isDisplayed())
+        }
+        if (emailSubscription(emailValue).getText().contains(PreSetData.subscriptionSuccessRU) ||
+                emailSubscription(emailValue).getText().contains(PreSetData.subscriptionSuccessEN)) {
+            System.out.println(emailSubscription(emailValue).getText());
             return true;
-        else return false;
+        } else return false;
     }
 
-    private void emailSubscription(String providedEmail){
+    private WebElement emailSubscription(String providedEmail) {
         WebElement emailField = getWait().until(ExpectedConditions.elementToBeClickable(emailSubscriptionFieldxPath));
         emailField.clear();
         emailField.sendKeys(providedEmail);
         emailField.submit();
+        WebElement result;
+        try {
+            result = getDriver().findElement(invalidEmailErrorxPath);
+        }
+        catch (Exception e)
+        {
+            result = getDriver().findElement(successEmailSubmitxPath);
+        }
+        return result;
+
+    }
+    public void test(String emailValue){
+        emailSubscription(emailValue);
+        WebElement error = getDriver().findElement(invalidEmailErrorxPath);
+        WebElement success = getDriver().findElement(successEmailSubmitxPath);
+//        System.out.println(error.getText());
+        System.out.println(success.getText());
 
     }
 }
