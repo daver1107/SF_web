@@ -9,4 +9,5 @@ public class PreSetData {
     public static final String requiredFieldsEmptyEN = "Please fill out all required fields";
     public static final String subscriptionSuccessRU = "Данные успешно отправлены";
     public static final String subscriptionSuccessEN = "Thank you! Your data has been submitted";
+    public static final String emptyField = " ";
 }

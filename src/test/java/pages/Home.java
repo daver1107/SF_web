@@ -17,16 +17,11 @@ public class Home extends SetUp {
     private static By invalidEmailErrorxPath = By.id("tilda-popup-for-error");
     private static By successEmailSubmitxPath = By.xpath("//div[@class = 't-form-success-popup__wrapper']");
     private static By successPopUpClosexPath = By.className("t-form-success-popup__close-icon");
+    private static By innerLinksxPath = By.xpath("//a[contains(@href,'skillfactory.ru/')]");
+
 
     private static List<WebElement> dropDownElements = getDriver().findElements(dropDownTopMenuxPath);
     private static List<WebElement> buttomMenu = getDriver().findElements(buttomMenuxPath);
-
-    public static List<WebElement> getInnerLinks() {
-        return innerLinks;
-    }
-
-    private static List<WebElement> innerLinks = getDriver().findElements(innerLinksxPath);
-
 
     private static final int numberOfDropDownElements = 13;
 
@@ -34,9 +29,8 @@ public class Home extends SetUp {
         Assert.assertEquals(dropDownElements.size(), numberOfDropDownElements);
     }
 
-    public List<WebElement> allMenuLinksCollection() {
-        List<WebElement> innerLinks = new ArrayList<>();
-        Stream.of(dropDownElements, buttomMenu).forEach(innerLinks::addAll);
+    public List<WebElement> innerLinks() {
+        List<WebElement> innerLinks = getDriver().findElements(innerLinksxPath);
         return innerLinks;
     }
 

@@ -16,20 +16,19 @@ public class SkillFactory extends SetUp {
     void subscriptionNegativeTest() {
         homePO.subscribeWithEmail(PreSetData.invalidEmail);
     }
-
-//    @Test
-//    void test() {
-//        homePO.test(PreSetData.validEmail);
-//    }
-
     @Test
     void supscriptionPositiveTest() {
         homePO.subscribeWithEmail(PreSetData.validEmail);
     }
 
     @Test
+    void subscriptionEmptyEmail() {
+        homePO.subscribeWithEmail(PreSetData.emptyField);
+    }
+
+    @Test
     void checkLinks(){
-        LinkChecker.runLinkChecker();
+        LinkChecker.runLinkChecker(homePO.innerLinks());
     }
 
     @AfterClass
