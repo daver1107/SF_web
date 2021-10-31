@@ -11,7 +11,6 @@ public class SkillFactory extends SetUp {
         homePO.dropDownNumberOfSections();
     }
 
-
     @Test
     void subscriptionNegativeTest() {
         homePO.subscribeWithEmail(PreSetData.invalidEmail);
@@ -29,6 +28,16 @@ public class SkillFactory extends SetUp {
     @Test
     void checkLinks(){
         LinkChecker.runLinkChecker(homePO.innerLinks());
+    }
+
+    @Test
+    void isGiftPresent() {
+        homePO.giftPopUp();
+    }
+
+    @Test
+    void onLineChatPresence() {
+        homePO.onlineChat();
     }
 
     @AfterClass
