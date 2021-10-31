@@ -42,10 +42,10 @@ public class LinkChecker extends SetUp {
                 respCode = huc.getResponseCode();
                 int numberOfBrokenLinks = 0;
                 if (respCode >= 400) {
-                    System.out.println(pageURL + " is a broken link");
+                    System.out.println(pageURL + " !BROKEN LINK!");
                     numberOfBrokenLinks++;
                 } else {
-                    System.out.println(pageURL + " is a valid link");
+                    System.out.println(pageURL + " ok");
                 }
                 Assert.assertEquals(numberOfBrokenLinks, 0);
 
