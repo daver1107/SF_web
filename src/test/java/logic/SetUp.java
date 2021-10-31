@@ -38,7 +38,6 @@ public class SetUp {
         homePO = new Home();
    }
 
-
     @After
     void close(){
         driver.close();

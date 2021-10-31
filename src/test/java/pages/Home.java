@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -14,7 +13,6 @@ import java.util.stream.Stream;
 public class Home extends SetUp {
     private static By dropDownTopMenuxPath = By.xpath("//a[@class = 't978__menu-link t-name t-name_xs t-menu__link-item']");
     private static By buttomMenuxPath = By.xpath("//a[@class = 'tn-atom']");
-    private static By innerLinksxPath = By.xpath("//a[contains(@href,'skillfactory.ru/')]");
     private static By emailSubscriptionFieldxPath = By.xpath("//input[@class = 't-input js-tilda-rule ']");
     private static By invalidEmailErrorxPath = By.id("tilda-popup-for-error");
     private static By successEmailSubmitxPath = By.xpath("//div[@class = 't-form-success-popup__wrapper']");
