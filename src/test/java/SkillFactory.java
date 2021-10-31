@@ -29,7 +29,7 @@ public class SkillFactory extends SetUp {
 
     @Test
     void checkLinks(){
-        LinkChecker.runLinkChecker(homePO.getInnerLinks());
+        LinkChecker.runLinkChecker();
     }
 
     @AfterClass

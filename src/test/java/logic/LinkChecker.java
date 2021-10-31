@@ -15,15 +15,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
 public class LinkChecker extends SetUp {
-
+    private static By innerLinksxPath = By.xpath("//a[contains(@href,'skillfactory.ru/')]");
     private static WebDriver linkCheckerdr;
 
-    public static void runLinkChecker(List<WebElement> links) {
-//        System.setProperty("webdriver.chrome.driver", "D:\\classes\\RUS_QA\\33.3\\SeleniumTest\\selenium\\chromedriver.exe");
-//        linkCheckerdr = new ChromeDriver();
-//        linkCheckerdr.manage().window().maximize();
-//        linkCheckerdr.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-//        linkCheckerdr.get(testURL);
+
+    public static void runLinkChecker() {
+        System.setProperty("webdriver.chrome.driver", "D:\\classes\\RUS_QA\\33.3\\SeleniumTest\\selenium\\chromedriver.exe");
+        linkCheckerdr = new ChromeDriver();
+        linkCheckerdr.manage().window().maximize();
+        linkCheckerdr.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        linkCheckerdr.get(testURL);
+        List<WebElement> links = linkCheckerdr.findElements(innerLinksxPath);
 
         String pageURL = "";
         HttpURLConnection huc;

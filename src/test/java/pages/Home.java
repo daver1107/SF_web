@@ -42,43 +42,35 @@ public class Home extends SetUp {
         return innerLinks;
     }
 
-    public boolean subscribeWithEmail(String emailValue) {
-        if (emailSubscription(emailValue).getText().contains(PreSetData.invalidEmailMessageRU) ||
-                emailSubscription(emailValue).getText().contains(PreSetData.invalidEmailMessageRU) ||
-                emailSubscription(emailValue).getText().contains(PreSetData.requiredFieldsEmptyRU) ||
-                emailSubscription(emailValue).getText().contains(PreSetData.requiredFieldsEmptyEN)) {
-            System.out.println(emailSubscription(emailValue).getText());
+    public boolean subscribeWithEmail(String providedEmail) {
+        String actualResult = emailSubscriptionResult(providedEmail);
+        getDriver().navigate().refresh();
+        if (actualResult.contains(PreSetData.invalidEmailMessageRU) ||
+                actualResult.contains(PreSetData.invalidEmailMessageEN) ||
+                actualResult.contains(PreSetData.requiredFieldsEmptyRU) ||
+                actualResult.contains(PreSetData.requiredFieldsEmptyEN)) {
+            System.out.println(actualResult);
             return true;
         }
-        if (emailSubscription(emailValue).getText().contains(PreSetData.subscriptionSuccessRU) ||
-                emailSubscription(emailValue).getText().contains(PreSetData.subscriptionSuccessEN)) {
-            System.out.println(emailSubscription(emailValue).getText());
+        if (actualResult.contains(PreSetData.subscriptionSuccessRU) ||
+                actualResult.contains(PreSetData.subscriptionSuccessEN)) {
+            System.out.println(actualResult);
             return true;
         } else return false;
     }
 
-    private WebElement emailSubscription(String providedEmail) {
+    private String emailSubscriptionResult(String providedEmail) {
         WebElement emailField = getWait().until(ExpectedConditions.elementToBeClickable(emailSubscriptionFieldxPath));
         emailField.clear();
         emailField.sendKeys(providedEmail);
         emailField.submit();
         WebElement result;
         try {
-            result = getDriver().findElement(invalidEmailErrorxPath);
+            result = getWait().until(ExpectedConditions.presenceOfElementLocated(invalidEmailErrorxPath));
+        } catch (Exception e) {
+            result = getWait().until(ExpectedConditions.presenceOfElementLocated(successEmailSubmitxPath));
         }
-        catch (Exception e)
-        {
-            result = getDriver().findElement(successEmailSubmitxPath);
-        }
-        return result;
-
-    }
-    public void test(String emailValue){
-        emailSubscription(emailValue);
-        WebElement error = getDriver().findElement(invalidEmailErrorxPath);
-        WebElement success = getDriver().findElement(successEmailSubmitxPath);
-//        System.out.println(error.getText());
-        System.out.println(success.getText());
+        return result.getText();
 
     }
 }
