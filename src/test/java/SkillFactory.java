@@ -27,7 +27,8 @@ public class SkillFactory extends SetUp {
 
     @Test
     void checkLinks(){
-        LinkChecker.runLinkChecker(homePO.innerLinks());
+        LinkChecker.runLinkChecker(testURL);
+
     }
 
     @Test
@@ -36,7 +37,7 @@ public class SkillFactory extends SetUp {
     }
 
     @Test
-    void onLineChatPresence() {
+    void zzonLineChatPresence() {
         homePO.onlineChat();
     }
 

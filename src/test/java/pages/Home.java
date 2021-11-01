@@ -86,11 +86,6 @@ public class Home extends SetUp {
         if (getDriver().findElement(chatWindowCss).isDisplayed()) {
             getWait().until(ExpectedConditions.elementToBeClickable(chatTextFieldxPath)).
                     sendKeys("test qa message");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             getDriver().findElement(chatWindowCss).click();
             return true;
         } else return false;
